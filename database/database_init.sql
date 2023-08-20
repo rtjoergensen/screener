@@ -3,6 +3,7 @@
 DROP TABLE IF EXISTS screener.public.teachers;
 DROP TABLE IF EXISTS screener.public.answers;
 DROP TABLE IF EXISTS screener.public.tests;
+DROP TABLE IF EXISTS screener.public.questions;
 
 
 -- CREATE TABLES
@@ -30,3 +31,7 @@ CREATE TABLE IF NOT EXISTS screener.public.tests (
     , year integer NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS screener.public.questions (
+	question_id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY
+	, content text NOT NULL
+);
