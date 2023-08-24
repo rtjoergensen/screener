@@ -8,13 +8,41 @@ const bcrypt = require("bcrypt")
 const saltRounds = 13
 const password = "test"
 
-
-
 //here we insert ejs
 app.set('view engine', 'ejs')
 
 //tell app where to find views
 app.set('views', path.join(__dirname, 'views'))
+
+//.env import
+const { Pool } = require("pg");
+const dotenv = require("dotenv");
+dotenv.config();
+ 
+const connectDb = async () => {
+    try {
+        const pool = new Pool({
+            user: process.env.PGUSER,
+            host: process.env.PGHOST,
+            database: process.env.PGDATABASE,
+            password: process.env.PGPASSWORD,
+            port: process.env.PGPORT,
+        });
+ 
+        await pool.connect()
+        const res = await pool.query('SELECT * FROM teachers')
+        console.log(res.rows)
+        await pool.end()
+    } catch (error) {
+        console.log(error)
+    }
+}
+ 
+connectDb()
+
+
+
+
 
 // create folder called views
 // add file.ejs and render to routes e.g. home.ejs
